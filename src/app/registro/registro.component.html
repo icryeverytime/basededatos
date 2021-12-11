@@ -1,0 +1,46 @@
+<form [formGroup]="profileForm" #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value,userPost)">
+    <div *ngIf="nombre?.errors?.required && nombre?.touched" class="alert">
+        * Nombre es requerido
+    </div>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" placeholder="Nombre" formControlName="nombre" ngModel>
+    <div *ngIf="correo?.invalid && correo?.touched" class="alert">
+        <div *ngIf="correo?.errors?.required">
+            * Correo es requerido
+        </div>
+        <div *ngIf="correo?.errors?.email">
+            * Ingresa un correo valido
+        </div>
+        <div *ngIf="correo?.errors?.incorrect">
+            * Correo ya existe
+        </div>
+    </div>
+    <label for="correo">Correo:</label>
+    <input type="email" id="correo" placeholder="Correo" formControlName="correo" ngModel>
+    <div *ngIf="numero?.invalid && numero?.touched" class="alert">
+        <div *ngIf="numero?.errors?.required">
+            * Numero telefonico es requerido
+        </div>
+        <div *ngIf="numero?.errors?.minlength">
+            * Numero telefonico debe ser minimo 10 
+        </div>
+    </div>
+    <label for="numero">Numero telefonico:</label>
+    <input type="tel" placeholder="Numero" id="numero" maxlength="10" formControlName="numero" ngModel>
+    <div *ngIf="contra?.invalid && contra?.touched" class="alert">
+        <div *ngIf="contra?.errors?.required">
+            * Contraseña es requerida
+        </div>
+        <div *ngIf="contra?.errors?.minlength">
+            * Contraseña debe ser minimo 8 characters
+        </div> 
+    </div>
+    <label for="contra">Contraseña:</label>
+    <input type="password" placeholder="Contraseña" id="contra" formControlName="contra" ngModel>
+    <div *ngIf="scontra?.errors?.compare && scontra?.touched" class="alert">
+        * Contraseña no son iguales
+    </div>
+    <label for="scontra">Confirmar contraseña:</label>
+    <input type="password" placeholder="Confirmar contraseña" id="scontra" formControlName="scontra" ngModel>
+    <input type="submit" value="Registrar" [disabled]="profileForm.invalid">
+</form>
