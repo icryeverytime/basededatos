@@ -1,12 +1,12 @@
 
 <form [formGroup]="profileForm" #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value,userPost)">
     <div class="container">
-      <h1>Registro</h1>
+      <h1>Registrarse</h1>
       <p>Por favor llene los siguientes campos</p>
       <hr>
 
       <div *ngIf="nombre?.errors?.required && nombre?.touched" class="alert">
-        * Nombre es requerido
+        * El nombre es requerido
       </div>
 
       <label for="nombre"><b>Nombre</b></label>
@@ -15,49 +15,49 @@
 
       <div *ngIf="correo?.invalid && correo?.touched" class="alert">
         <div *ngIf="correo?.errors?.required">
-            * Correo es requerido
+            * El correo es requerido
         </div>
         <div *ngIf="correo?.errors?.email">
-            * Ingresa un correo valido
+            * Ingresa un correo valido porfavor
         </div>
         <div *ngIf="correo?.errors?.incorrect">
-            * Correo ya existe
+            * Ese correo ya esta registrado
         </div>
       </div>
 
       <label for="email"><b>Email</b></label>
-      <input type="text" id="correo" placeholder="Ingrese su correo" formControlName="correo" ngModel>
+      <input type="text" id="correo" placeholder="Ingrese su correo" formControlName="correo" ngModel required>
 
       <div *ngIf="numero?.invalid && numero?.touched" class="alert">
         <div *ngIf="numero?.errors?.required">
-            * Numero telefonico es requerido
+            * El número telefónico es requerido
         </div>
         <div *ngIf="numero?.errors?.minlength">
-            * Numero telefonico debe ser minimo 10 
+            * El numero telefonico debe ser de minimo 10 caracteres
         </div>
       </div>
 
       <label for="email"><b>Telefono</b></label>
-      <input type="text" placeholder="Ingrese su numero telefónico" id="numero" maxlength="10" formControlName="numero" ngModel>
+      <input type="text" placeholder="Ingrese su numero telefónico" id="numero" maxlength="10" formControlName="numero" ngModel required>
   
       <div *ngIf="contra?.invalid && contra?.touched" class="alert">
         <div *ngIf="contra?.errors?.required">
-            * Contraseña es requerida
+            * La contraseña es requerida
         </div>
         <div *ngIf="contra?.errors?.minlength">
-            * Contraseña debe ser minimo 8 characters
+            * La contraseña debe ser de minimo 8 characters
         </div> 
       </div>
 
       <label for="psw"><b>Contraseña</b></label>
-      <input type="password" placeholder="Ingrese su contraseña" id="contra" formControlName="contra" ngModel>
+      <input type="password" placeholder="Ingrese su contraseña" id="contra" formControlName="contra" ngModel required>
   
       <div *ngIf="scontra?.errors?.compare && scontra?.touched" class="alert">
-        * Contraseña no son iguales
+        * Las contraseñas no son iguales
     </div>
 
       <label for="psw-repeat"><b>Confirmar Contraseña</b></label>
-      <input type="password" placeholder="Confirmar contraseña" id="scontra" formControlName="scontra" ngModel>
+      <input type="password" placeholder="Confirmar contraseña" id="scontra" formControlName="scontra" ngModel required>
       <hr>
         
 
