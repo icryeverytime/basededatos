@@ -32,9 +32,14 @@ export class LoginComponent implements OnInit {
       if(split[0]=="cliente")
       {
         localStorage.setItem('cliente',split[1])
+        window.location.href = "http://localhost:4200";
       }
-      else{
+      else if(split[0]=="empleado"){
         localStorage.setItem('empleado',split[1])
+        window.location.href = "http://localhost:4200";
+      }
+      if(result=="nada"){
+        formData.form.controls['correo'].setErrors({'invalid':true})
       }
     })
   }

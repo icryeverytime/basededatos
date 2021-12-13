@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: 'inventario', component: InventarioComponent},
   {path: 'proveedores', component: ProveedoresComponent},
   {path: 'registro', component: RegistroComponent},
-  {path: 'login',component: LoginComponent}  
+  {path: 'login', component: LoginComponent}  
 ];
 
 @NgModule({
