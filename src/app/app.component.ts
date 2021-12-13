@@ -7,4 +7,32 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'base-datos';
+
+  readLocalStorageValue()
+  {
+    if(localStorage.getItem('empleado')==null)
+    {
+      return false
+    }
+    else{
+      return true
+    }
+  }
+  loggedin()
+  {
+    if(localStorage.getItem('empleado')==null && localStorage.getItem('cliente')==null)
+    {
+      return true
+    }
+    else
+    {
+      return false
+    }
+  }
+  logout()
+  {
+    localStorage.removeItem('empleado')
+    localStorage.removeItem('cliente')
+    window.location.href = "http://localhost:4200";
+  }
 }
