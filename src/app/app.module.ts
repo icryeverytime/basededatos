@@ -7,12 +7,14 @@ import { InventarioComponent } from './components/inventario/inventario.componen
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { RegistroComponent } from './registro/registro.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
     InventarioComponent,
     ProveedoresComponent,
-    RegistroComponent
+    RegistroComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

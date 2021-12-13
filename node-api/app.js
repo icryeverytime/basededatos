@@ -13,6 +13,58 @@ app.use(function (req, res, next) {
     res.header("Content-Security-Policy", "script-src 'self' https://apis.google.com");
     next();
 });
+app.post('/login',(req,res)=>{
+    let sql="SELECT correo FROM Cliente WHERE correo=? AND contra=?"
+    let sql2="SELECT correo FROM Empleado WHERE correo=? AND contra=?"
+    console.log(req.body)
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql2,[req.body.correo,req.body.contra],function(err,result,fields){
+              if(err)
+              {
+                  console.log(err)
+                  res.send(err)
+                  res.end
+              }
+              if(result.length>0)
+              {
+                  res.send("empleado "+result[0].correo)
+                  res.end               
+              }  
+              else{
+                  con.query(sql,[req.body.correo,req.body.contra],function(err,result,fields){
+                      if(err)
+                      {
+                          console.log(err)
+                          res.send(err)
+                          res.end
+                      }
+                      if(result.length>0)
+                      {
+                          res.send("cliente "+result[0].correo)
+                          res.end
+                      }
+                      else{
+                          res.send("nada")
+                          res.end
+                      }
+                  })
+              }
+            })
+        }
+    })
+  })
 app.post("/registro",function(req,res){
     let post={
         Nombre:req.body.nombre,
