@@ -62,8 +62,8 @@
         
 
       <p>Al crear una cuenta usted acepta nuestros <a href="#">Terminos y Condiciones</a>.</p>
-      <button type="submit" class="registerbtn">Registrarme</button>
-      
+      <button type="submit" class="registerbtn" [disabled]="profileForm.invalid">Registrarme</button>
+    
     </div>
   
     <div class="container signin">
