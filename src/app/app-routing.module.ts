@@ -4,11 +4,13 @@ import { InventarioComponent } from './components/inventario/inventario.componen
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { RegistroComponent } from './registro/registro.component';
 import { LoginComponent } from './login/login.component';
+import { EmpleadosComponent } from './empleados/empleados.component';
 const routes: Routes = [
   {path: 'inventario', component: InventarioComponent},
   {path: 'proveedores', component: ProveedoresComponent},
   {path: 'registro', component: RegistroComponent},
-  {path: 'login', component: LoginComponent}  
+  {path: 'login', component: LoginComponent},
+  {path: 'empleados', component: EmpleadosComponent}  
 ];
 
 @NgModule({

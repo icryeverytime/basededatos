@@ -8,13 +8,15 @@ import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { RegistroComponent } from './registro/registro.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { EmpleadosComponent } from './empleados/empleados.component';
 @NgModule({
   declarations: [
     AppComponent,
     InventarioComponent,
     ProveedoresComponent,
     RegistroComponent,
-    LoginComponent
+    LoginComponent,
+    EmpleadosComponent
   ],
   imports: [
     BrowserModule,
