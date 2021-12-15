@@ -19,6 +19,9 @@
         <li class="nav-item">
           <a class="nav-link" *ngIf="readLocalStorageValue()" [routerLink]="['empleados']">Empleados</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="readLocalStorageValue()" [routerLink]="['productos']">Productos</a>
+        </li>
         <li class="nav-item" style="float: right;">
           <a class="nav-link" *ngIf="loggedin()" [routerLink]="['registro']">Registro</a>
         </li>
@@ -27,9 +30,6 @@
         </li>
         <li class="nav-item" style="float: right;">
           <a class="nav-link" *ngIf="!loggedin()" (click)="logout()">Logout</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['productos']">Productos</a>
         </li>
       </ul>
     </div>

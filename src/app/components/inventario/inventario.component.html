@@ -1,26 +1,24 @@
-
 <h3 style="padding-top: 1%; padding-left: 1%;">Registro de Inventario</h3>
-<form style="padding: 1%" class="">
+<form [formGroup]="inventarioForm" #inventarioPost="ngForm" (ngSubmit)="onSubmit(inventarioPost.value)" style="padding: 1%" class="" >
     <div class="form-group w-50">
     <label for="name1">Nombre</label>
-    <input type="text" class="form-control" id="name1" placeholder="Nombre">
+    <input type="text" class="form-control" id="name1" placeholder="Nombre" formControlName="name1" ngModel>
     </div>
     <div class="form-group w-50">
         <label for="cant1">Cantidad</label>
-        <input type="number" class="form-control" id="cant1" placeholder="#">
+        <input type="number" class="form-control" id="cant1" placeholder="#" formControlName="cant1" ngModel>
         </div>
     <div class="form-group w-50">
       <label for="precio1">Precio</label>
-      <input type="number" class="form-control" id="precio1" placeholder="$">
+      <input type="number" class="form-control" id="precio1" placeholder="$" formControlName="precio1" ngModel>
     </div>
     <div class="form-group w-50">
     <label for="year1">Año</label>
-    <input type="number" class="form-control" id="year1" placeholder="Año">
+    <input type="number" class="form-control" id="year1" placeholder="Año" formControlName="year1" ngModel>
     </div>
         <br>
-    <button type="submit" class="btn btn-primary">Enviar</button>
+    <input type="submit" class="btn btn-primary" value="Enviar">
   </form>
-
       <table class="table caption-top table-bordered table-hover">
       <caption style="text-align: center;">Inventario de la paleteria</caption>
 
@@ -34,61 +32,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row" class="pt-4 pb-4">a</th>
-            <td class="pt-4 pb-4">a</td>
-            <td class="pt-4 pb-4">a</td>
-            <td class="pt-4 pb-4">a</td>
-            <td class="pt-4 pb-4">a</td>
-          </tr>
-          <tr>
-            <th scope="row" class="pt-4 pb-4">b</th>
-            <td class="pt-4 pb-4" >b</td>
-            <td class="pt-4 pb-4">b</td>
-            <td class="pt-4 pb-4">b</td>
-            <td class="pt-4 pb-4">b</td>
-          </tr>
-          <tr>
-            <th scope="row" class="pt-4 pb-4">c</th>
-            <td class="pt-4 pb-4">c</td>
-            <td class="pt-4 pb-4">c</td>
-            <td class="pt-4 pb-4">c</td>
-            <td class="pt-4 pb-4">c</td>
-          </tr>
-          <tr>
-            <th scope="row" class="pt-4 pb-4">d</th>
-            <td class="pt-4 pb-4">d</td>
-            <td class="pt-4 pb-4">d</td>
-            <td class="pt-4 pb-4">d</td>
-            <td class="pt-4 pb-4">d</td>
-          </tr>
-          <tr>
-            <th scope="row" class="pt-4 pb-4">d</th>
-            <td class="pt-4 pb-4">d</td>
-            <td class="pt-4 pb-4">d</td>
-            <td class="pt-4 pb-4">d</td>
-            <td class="pt-4 pb-4">d</td>
-          </tr>
-          <tr>
-            <th scope="row" class="pt-4 pb-4">e</th>
-            <td class="pt-4 pb-4">e</td>
-            <td class="pt-4 pb-4">e</td>
-            <td class="pt-4 pb-4">e</td>
-            <td class="pt-4 pb-4">e</td>
-          </tr>
-          <tr>
-            <th scope="row" class="pt-4 pb-4">f</th>
-            <td class="pt-4 pb-4">f</td>
-            <td class="pt-4 pb-4">f</td>
-            <td  class="pt-4 pb-4">f</td>
-            <td class="pt-4 pb-4">f</td>
-          </tr>
-          <tr>
-            <th scope="row" class="pt-4 pb-4">g</th>
-            <td class="pt-4 pb-4">g</td>
-            <td class="pt-4 pb-4">g</td>
-            <td class="pt-4 pb-4">g</td>
-            <td class="pt-4 pb-4">g</td>
+          <tr *ngFor="let datos of data2; let i=index">
+            <th scope="row" class="pt-4 pb-4">{{data2[i]["id_inventario"]}}</th>
+            <td class="pt-4 pb-4">{{data2[i]["nombre"]}}</td>
+            <td class="pt-4 pb-4">{{data2[i]["cantidad"]}}</td>
+            <td class="pt-4 pb-4">{{data2[i]["precio"]}}</td>
+            <td class="pt-4 pb-4">{{data2[i]["anio"]}}</td>
           </tr>
           
         </tbody>
