@@ -497,7 +497,11 @@ app.post("/eliminarP",function(req,res){
                 else{
                     res.send(result)
                     res.end
-                  })
+                }
+            })
+        }
+    })
+})
 
 app.post('/registroproducto',function(req,res){
     console.log(req.body)
@@ -937,7 +941,7 @@ app.post("/eliminarE",function(req,res){
 // APIS VISTAS
 app.post("/Empleado_Ags", function(req,res){
 
-    let sql=`SELECT * FROM empleado_ags`
+    let sql=`SELECT * FROM Empleado_Ags`
     var con=mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -977,7 +981,7 @@ app.post("/Empleado_Ags", function(req,res){
 
 app.post("/Paletas", function(req,res){
 
-    let sql=`SELECT * FROM paletas`
+    let sql=`SELECT * FROM Paletas`
     var con=mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -1017,7 +1021,7 @@ app.post("/Paletas", function(req,res){
 
 app.post("/Productoxmaquina", function(req,res){
 
-    let sql=`SELECT * FROM productoxmaquina`
+    let sql=`SELECT * FROM ProductoxMaquina`
     var con=mysql.createConnection({
         host: "localhost",
         user: "root",
