@@ -19,4 +19,56 @@ export class IngredientesComponent implements OnInit {
       console.log(this.data[0])
     })
   }
+  agua()
+  {
+    window.location.href = "http://localhost:4200/factura/1"
+  }
+  azucar()
+  {
+    window.location.href = "http://localhost:4200/factura/2"
+  }
+  grenetina()
+  {
+    window.location.href = "http://localhost:4200/factura/3"
+  }
+  fresas()
+  {
+    window.location.href = "http://localhost:4200/factura/4"
+  }
+  mango()
+  {
+    window.location.href = "http://localhost:4200/factura/5"
+  }
+  evaporada()
+  {
+    window.location.href = "http://localhost:4200/factura/6"
+  }
+  limon()
+  {
+    window.location.href = "http://localhost:4200/factura/7"
+  }
+  colorante()
+  {
+    window.location.href = "http://localhost:4200/factura/8"
+  }
+  melon()
+  {
+    window.location.href = "http://localhost:4200/factura/9"
+  }
+  clara()
+  {
+    window.location.href = "http://localhost:4200/factura/10"
+  }
+  vanilla()
+  {
+    window.location.href = "http://localhost:4200/factura/11"
+  }
+  yema()
+  {
+    window.location.href = "http://localhost:4200/factura/12"
+  }
+  crema()
+  {
+    window.location.href = "http://localhost:4200/factura/13"
+  }
 }

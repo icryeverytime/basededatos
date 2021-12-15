@@ -7,6 +7,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { LoginComponent } from './login/login.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { IngredientesComponent } from './ingredientes/ingredientes.component';
+import { FacturaComponent } from './factura/factura.component';
 const routes: Routes = [
   {path: 'inventario', component: InventarioComponent},
   {path: 'proveedores', component: ProveedoresComponent},
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'registro', component: RegistroComponent},
   {path: 'login', component: LoginComponent},
   {path: 'empleados', component: EmpleadosComponent},
-  {path: 'ingredientes',component: IngredientesComponent}  
+  {path: 'ingredientes',component: IngredientesComponent},
+  {path: 'factura/:ingrediente',component: FacturaComponent}  
 ];
 
 @NgModule({

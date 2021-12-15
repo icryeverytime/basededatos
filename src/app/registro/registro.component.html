@@ -1,5 +1,5 @@
 
-<form [formGroup]="profileForm" #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value,userPost)">
+<form [formGroup]="profileForm" #userPost="ngForm"  ngForm (ngSubmit)="onSubmit(userPost.value,userPost)">
     <div class="container">
       <h1>Registrarse</h1>
       <p>Por favor llene los siguientes campos</p>
