@@ -1,45 +1,45 @@
 <h3 style="padding-top: 1%; padding-left: 1%;">Registro a Proveedores</h3>
-<form style="padding: 1%" class="">
+<form style="padding: 1%" class="" [formGroup]="proveedoresForm" #proveedorPost="ngForm" (ngSubmit)="onSubmit(proveedorPost.value,proveedorPost)">
     <div class="form-group w-50">
     <label for="name1">Nombre</label>
-    <input type="text" class="form-control" id="name1" placeholder="Nombre">
+    <input type="text" class="form-control" id="name1" placeholder="Nombre" formControlName="nombre" ngModel>
     </div>
     <div class="form-group w-50">
         <label for="tel1">Telefono</label>
-        <input type="number" class="form-control" id="name1" placeholder="Telefono">
+        <input type="number" class="form-control" id="name1" placeholder="Telefono" formControlName="numerotelefono" ngModel>
         </div>
     <div class="form-group w-50">
       <label for="exampleInputEmail1">Correo</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo">
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo" formControlName="correo" ngModel>
       <small id="emailHelp" class="form-text text-muted">Nuestra pagina protege todos tus datos.</small>
     </div>
     <div class="form-group w-50">
       <label for="cuenta1">Cuenta Bancaria</label>
-      <input type="password" class="form-control" id="cuenta1" placeholder="Numero de cuenta">
+      <input type="password" class="form-control" id="cuenta1" placeholder="Numero de cuenta" formControlName="cuentabancaria" ngModel>
     </div>
     <div class="form-group w-50">
         <label for="calle1">Calle</label>
-        <input type="text" class="form-control" id="calle1" placeholder="Calle">
+        <input type="text" class="form-control" id="calle1" placeholder="Calle" formControlName="calle" ngModel>
         </div>
     <div class="form-group w-50">
     <label for="numex">Numero Exterior</label>
-    <input type="number" class="form-control" id="numex" placeholder="Exterior">
+    <input type="number" class="form-control" id="numex" placeholder="Exterior" formControlName="nuexterior" ngModel>
     </div>
     <div class="form-group w-50">
         <label for="col1">Colonia</label>
-        <input type="text" class="form-control" id="col1" placeholder="Nombre">
+        <input type="text" class="form-control" id="col1" placeholder="Nombre" formControlName="colonia" ngModel>
     </div>
     <div class="form-group w-50">
         <label for="mun1">Municipio</label>
-        <input type="text" class="form-control" id="mun1" placeholder="Nombre">
+        <input type="text" class="form-control" id="mun1" placeholder="Nombre" formControlName="municipio" ngModel>
     </div>
     <div class="form-group w-50">
         <label for="pais1">Pais</label>
-        <input type="text" class="form-control" id="pais1" placeholder="Pais">
+        <input type="text" class="form-control" id="pais1" placeholder="Pais" formControlName="pais" ngModel>
     </div>
     <div class="form-group w-50">
         <label for="name1">Numero ID Fiscal</label>
-        <input type="number" class="form-control" id="name1" placeholder="Numero Fiscal">
+        <input type="number" class="form-control" id="name1" placeholder="Numero Fiscal" formControlName="num_id_fiscal" ngModel>
         </div>
         <br>
     <button type="submit" class="btn btn-primary">Enviar</button>
