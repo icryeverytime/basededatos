@@ -1,0 +1,5 @@
+CREATE TRIGGER `after_orden` AFTER INSERT ON `Orden`
+ FOR EACH ROW update Producto
+SET
+cantidad = cantidad-1
+where id_producto = new.id_producto

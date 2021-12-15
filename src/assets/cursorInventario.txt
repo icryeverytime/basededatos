@@ -1,0 +1,27 @@
+DELIMITER $$
+DROP PROCEDURE IF EXISTS funcion_cursor $$
+CREATE PROCEDURE funcion_cursor()
+BEGIN
+DECLARE cuantidad INT;
+DECLARE nom VARCHAR(80);
+DECLARE costo FLOAT;
+DECLARE aaniioo YEAR;
+DECLARE var_final INT DEFAULT 0;
+
+
+
+DECLARE iinventario CURSOR
+FOR SELECT `cantidad`,`nombre`,`precio`,`anio` FROM inventario;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET var_final = 1;
+OPEN iinventario;
+bucle: LOOP
+FETCH iinventario INTO cuantidad, nom, costo, aaniioo;
+IF var_final = 1 THEN
+LEAVE bucle;
+END IF;
+select concat(cuantidad," ",nom," ",costo," ",aaniioo);
+FETCH iinventario into cuantidad, nom, costo, aaniioo;
+END LOOP bucle;
+CLOSE iinventario;
+END $$
+DELIMITER $$
