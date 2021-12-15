@@ -1,0 +1,90 @@
+<h1 style="text-align: center;">${{this.User}}</h1>
+<table class="table caption-top table-bordered table-hover">
+    <caption style="text-align: center;">Proveedores</caption>
+
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Numero Telefono</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Cuenta bancaria</th>
+          <th scope="col">Calle</th>
+          <th scope="col">Numero exterior</th>
+          <th scope="col">Colonia</th>
+          <th scope="col">Municipio</th>
+          <th scope="col">Pais</th>
+          <th scope="col">Numero fiscal</th>
+          <th scope="col">Comprar de proveedor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let datos of data; let i=index">
+          <th scope="row" class="pt-4 pb-4">{{data[i]["id_proveedor"]}}</th>
+          <td class="pt-4 pb-4">{{data[i]["nombre"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["numerotelefono"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["correo"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["cuentabancaria"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["calle"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["nuexterior"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["colonia"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["municipio"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["pais"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["num_id_fiscal"]}}</td>
+        <td class="pt-4 pb-4">
+            <form [formGroup]="compraForm" #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value,i)">
+                <label for="numero">Cantidad de:</label>
+                <input type="number" min="1" id="numero" formControlName="numero" ngModel>
+                <input type="submit" value="Comprar">
+            </form>
+        </td>
+          
+        </tr>
+      </tbody>
+    </table>
+<table class="table caption-top table-bordered table-hover">
+    <caption style="text-align: center;">Proveedores</caption>
+
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Numero Telefono</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Cuenta bancaria</th>
+          <th scope="col">Calle</th>
+          <th scope="col">Numero exterior</th>
+          <th scope="col">Colonia</th>
+          <th scope="col">Municipio</th>
+          <th scope="col">Pais</th>
+          <th scope="col">Numero fiscal</th>
+          <th scope="col">Comprar de proveedor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let datos of data; let i=index">
+          <th scope="row" class="pt-4 pb-4">{{data[i]["id_proveedor"]}}</th>
+          <td class="pt-4 pb-4">{{data[i]["nombre"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["numerotelefono"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["correo"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["cuentabancaria"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["calle"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["nuexterior"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["colonia"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["municipio"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["pais"]}}</td>
+          <td class="pt-4 pb-4">{{data[i]["num_id_fiscal"]}}</td>
+        <td class="pt-4 pb-4">
+            <form [formGroup]="compraForm" #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value,i)">
+                <label for="numero">Cantidad de:</label>
+                <input type="number" min="1" id="numero" formControlName="numero" ngModel>
+                <input type="submit" value="Comprar">
+            </form>
+        </td>
+          
+        </tr>
+      </tbody>
+    </table>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>  
+

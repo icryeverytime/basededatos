@@ -1,6 +1,7 @@
 const express=require('express')
 const app=express()
 const cors=require('cors')
+const moment= require('moment') 
 const mysql=require('mysql')
 app.use(cors())
 app.options('*',cors())
@@ -13,6 +14,95 @@ app.use(function (req, res, next) {
     res.header("Content-Security-Policy", "script-src 'self' https://apis.google.com");
     next();
 });
+app.post('/factura',(req,res)=>{
+    console.log(req.body)
+    console.log(req.body[0].id)
+    console.log(req.body[0].ingrediente)
+    console.log(req.body[0].data.numero)
+    let sql="INSERT INTO Factura SET ?"
+    let iva=req.body[0].ingrediente*.16
+    let ts=Date.now()
+    let date_time=new Date(ts)
+    let date=date_time.getDate()
+    let month=date_time.getMonth()
+    var endDate=moment(date_time)
+    let year=date_time.getFullYear()
+    let current=year+"-"+month+"-"+date
+    let total=parseFloat(iva)+parseFloat(req.body[0].ingrediente)
+    console.log(iva)
+    console.log("total: "+total)
+    let post=({
+        fechaemision: current,
+        fechavencimiento: endDate.format('YYYY-MM-DD'),
+        id_proveedor: req.body[0].id,
+        id_ingrediente: req.body[0].ingrediente,
+        cantidad: req.body[0].data.numero,
+        preciobase: req.body[0].ingrediente,
+        iva: iva,
+        preciototal: total
+    })
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,post,function(err,result,fields){
+                if(err)
+                {
+                    console.log(err)
+                    res.send(err)
+                    res.end
+                }
+                else{
+                    console.log(result)
+                    res.send("ingresado")
+                    res.end()
+                }
+            })
+        }
+    })
+})
+app.post('/prove',(req,res)=>{
+    let sql='SELECT * FROM Proveedor'
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    console.log(err)
+                    res.send(err)
+                    res.end
+                }
+                else
+                {
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
 app.post('/login',(req,res)=>{
     let sql="SELECT correo FROM Cliente WHERE correo=? AND contra=?"
     let sql2="SELECT correo FROM Empleado WHERE correo=? AND contra=?"
