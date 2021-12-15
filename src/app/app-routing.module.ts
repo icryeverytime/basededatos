@@ -10,7 +10,7 @@ import { IngredientesComponent } from './ingredientes/ingredientes.component';
 const routes: Routes = [
   {path: 'inventario', component: InventarioComponent},
   {path: 'proveedores', component: ProveedoresComponent},
-
+  {path: 'productos',component: ProductosComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'login', component: LoginComponent},
   {path: 'empleados', component: EmpleadosComponent},

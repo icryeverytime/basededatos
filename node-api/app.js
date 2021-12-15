@@ -129,8 +129,79 @@ app.post('/registroE',function(req,res){
         }
     })
 })
+app.post('/inventario',function(req,res){
+    console.log(req.body)
+    let sql='INSERT INTO Inventario SET ?'
+    let post={
+        nombre: req.body.name1,
+        cantidad: req.body.cant1,
+        precio: req.body.precio1,
+        anio: req.body.year1
+    }
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,post,function(err,result,fields){
+                if(err)
+                {
+                    console.log(err)
+                    res.send(err)
+                    res.end
+                }
+                else
+                {
+                    res.send("ingresado")
+                    res.end
+                }
+            })
+        }
+    })
+})
 app.post('/ingredientes',function(req,res){
     let sql='SELECT * FROM Ingredientes'
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fileds){
+                if(err)
+                {
+                    console.log(err)
+                    res.send(err)
+                    res.end
+                }
+                else{
+                    console.log(result)
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
+app.post('/getinventario',function(req,res){
+    let sql='SELECT * FROM Inventario'
     var con=mysql.createConnection({
         host: "localhost",
         user: "root",
