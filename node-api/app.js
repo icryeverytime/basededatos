@@ -221,6 +221,57 @@ app.post("/registro",function(req,res){
         }
     })
 })
+
+app.post("/registroP", function(req,res){
+    let post = {
+        nombre: req.body.nombre,
+        numerotelefono: req.body.numerotelefono,
+        correo: req.body.correo,
+        cuentabancaria: req.body.cuentabancaria,
+        calle: req.body.calle,
+        nuexterior: req.body.nuexterior,
+        colonia: req.body.colonia,
+        municipio: req.body.municipio,
+        pais: req.body.pais,
+        num_id_fiscal: req.body.num_id_fiscal
+    }
+    let sql='INSERT INTO Proveedor SET ?'
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,post,function(err,result,fields){
+                if(err)
+                {
+                    if(err.sqlMessage.includes("Cliente.correo"))
+                    {
+                        res.send("correo")
+                        res.end
+                    }
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
+                }
+                else{
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
 app.listen(5000,(req,res)=>{
     console.log('Express API esta corriendo en el puerto 5000');
 });
