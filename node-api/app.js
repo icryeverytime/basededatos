@@ -14,6 +14,98 @@ app.use(function (req, res, next) {
     res.header("Content-Security-Policy", "script-src 'self' https://apis.google.com");
     next();
 });
+app.post("/compraproductos",(req,res)=>{
+    console.log(req.body)
+    let sql2="SELECT * FROM Producto WHERE id_producto=?"
+    let sql="INSERT INTO Recibo SET ?"
+    let sql3="INSERT INTO Orden SET ?"
+    let sql4="SELECT id_cliente FROM Cliente WHERE correo=?"
+    let ts=Date.now()
+    let precio
+    let date_time=new Date(ts)
+    let date=date_time.getDate()
+    let month=date_time.getMonth()
+    let year=date_time.getFullYear()
+    let current=year+"-"+month+"-"+date
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql2,[req.body[0].id],function(err,result,fields){
+                if(err)
+                {
+                    console.log(err)
+                    res.send(err)
+                    res.end()
+                }
+                else{
+                    console.log(result)
+                    precio=result[0].precio
+                    console.log(precio)
+                    let iva=precio*.16
+                    let preciototal=iva+precio
+                    let idcliente
+                    let reciboid
+                    let post=({
+                        fecha: current,
+                        precio: precio,
+                        iva: iva,
+                        preciototal: preciototal
+                    })
+                    con.query(sql,post,function(err,result,fields){
+                        if(err)
+                        {
+                            console.log(err)
+                            res.send(err)
+                            res,end
+                        }
+                        else{
+                            reciboid=result.insertId
+                            con.query(sql4,req.body[0].user,function(err,result,fields){
+                                if(err)
+                                {
+                                    console.log(err)
+                                }
+                                else{
+                                    idcliente=result[0].id_cliente
+                                    let post2=({
+                                        id_producto:req.body[0].id,
+                                        id_recibo:reciboid,
+                                        id_cliente:idcliente
+                                    })
+                                    con.query(sql3,post2,function(err,result,fields){
+                                        if(err)
+                                        {
+                                            console.log(err)
+                                            
+                                        }
+                                        {
+                                            console.log(result)
+                                        }
+                                    })
+                                    res.send("ingresado")
+                                    res.end  
+                                }
+                            })
+                          
+                                                      
+                        }
+                    })
+                }
+            })
+        }
+    })
+})
 app.post('/factura',(req,res)=>{
     console.log(req.body)
     console.log(req.body[0].id)
@@ -931,6 +1023,38 @@ app.post("/eliminarE",function(req,res){
                     }
                 }
                 else{
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
+app.post("/getproductos",function(req,res){
+    let sql='SELECT * FROM Producto'
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: '123456789',
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    console.log(err)
+                    res.send(err)
+                    res.end
+                }
+                else{
+                    console.log(result)
                     res.send(result)
                     res.end
                 }
