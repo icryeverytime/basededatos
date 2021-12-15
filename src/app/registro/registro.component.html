@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <label for="email"><b>Email</b></label>
+      <label for="correo"><b>Correo</b></label>
       <input type="text" id="correo" placeholder="Ingrese su correo" formControlName="correo" ngModel required>
 
       <div *ngIf="numero?.invalid && numero?.touched" class="alert">
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <label for="email"><b>Telefono</b></label>
+      <label for="numero"><b>Telefono</b></label>
       <input type="text" placeholder="Ingrese su numero telefónico" id="numero" maxlength="10" formControlName="numero" ngModel required>
   
       <div *ngIf="contra?.invalid && contra?.touched" class="alert">
@@ -49,29 +49,30 @@
         </div> 
       </div>
 
-      <label for="psw"><b>Contraseña</b></label>
+      <label for="contra"><b>Contraseña</b></label>
       <input type="password" placeholder="Ingrese su contraseña" id="contra" formControlName="contra" ngModel required>
   
       <div *ngIf="scontra?.errors?.compare && scontra?.touched" class="alert">
         * Las contraseñas no son iguales
     </div>
 
-      <label for="psw-repeat"><b>Confirmar Contraseña</b></label>
+      <label for="scontra"><b>Confirmar Contraseña</b></label>
       <input type="password" placeholder="Confirmar contraseña" id="scontra" formControlName="scontra" ngModel required>
       <hr>
         
 
       <p>Al crear una cuenta usted acepta nuestros <a href="#">Terminos y Condiciones</a>.</p>
-      <button type="submit" class="registerbtn">Registrarme</button>
-      
+      <button type="submit" class="registerbtn" [disabled]="profileForm.invalid">Registrarme</button>
+    
     </div>
   
     <div class="container signin">
-      <p>Ya tienes una cuenta? <a href="#">Logeate</a>.</p>
+      <p>Ya tienes una cuenta? <a [routerLink]="['login']">Logeate</a>.</p>
     </div>
   
 
 </form>
+
 
 
 

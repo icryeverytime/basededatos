@@ -1,0 +1,80 @@
+<form [formGroup]="empleadoForm" #empleadoPost="ngForm" (ngSubmit)="onSubmit(empleadoPost.value,empleadoPost)">
+<h1>Registro empleado</h1>
+<div *ngIf="nombre?.errors?.required && nombre?.touched" class="alert">
+    * Nombre es requerido
+</div>
+<label for="nombre">Nombre:</label>
+<input type="text" id="nombre" placeholder="Nombre" formControlName="nombre" ngModel>
+<div *ngIf="correo?.invalid && correo?.touched" class="alert">
+    <div *ngIf="correo?.errors?.required">
+        * Correo es requerido
+    </div>
+    <div *ngIf="correo?.errors?.email">
+        * Ingrese un correo valido
+    </div>
+    <div *ngIf="correo?.errors?.invalid">
+        * Correo ya existe en una cuenta
+    </div>
+</div>
+<label for="correo">Correo:</label>
+<input type="email" id="correo" placeholder="Correo" formControlName="correo" ngModel>
+<div *ngIf="numero?.invalid && numero?.touched" class="alert">
+    <div *ngIf="numero?.errors?.required">
+        * Numero es requerido
+    </div>
+    <div *ngIf="numero?.errors?.minlength">
+        * Numero es minimo 10 caracteres
+    </div>
+</div>
+<label for="numero">Numero telefonico:</label>
+<input type="text" id="numero" placeholder="Numero telefonico" maxlength="10" formControlName="numero" ngModel>
+<div *ngIf="calle?.errors?.required && calle?.touched" class="alert">
+    * Calle es requerida
+</div>
+<label for="calle">Calle:</label>
+<input type="text" id="calle" placeholder="Calle" formControlName="calle" ngModel>
+<div *ngIf="nuexterior?.errors?.required && nuexterior?.touched" class="alert">
+    * Numero exterior es requerido
+</div>
+<label for="nuexterior">Numero exterior:</label>
+<input type="text" id="nuexterior" placeholder="Numero exterior" formControlName="nuexterior" ngModel>
+<div *ngIf="colonia?.errors?.required && colonia?.touched" class="alert">
+    * Colonia es requerido
+</div>
+<label for="colonia">Colonia:</label>
+<input type="text" id="colonia" placeholder="Colonia" formControlName="colonia" ngModel>
+<div *ngIf="municipio?.errors?.required && municipio?.touched" class="alert">
+    * Municipio es requerido
+</div>
+<label for="municipio">Municipio:</label>
+<input type="text" id="municipio" placeholder="Municipio" formControlName="municipio" ngModel>
+<div *ngIf="pais?.errors?.required && pais?.touched" class="alert">
+    * Pais es requerido
+</div> 
+<label for="pais">Pais:</label>
+<input type="text" id="pais" placeholder="Pais" formControlName="pais" ngModel>
+<div *ngIf="contra?.invalid && contra?.touched" class="alert">
+    <div *ngIf="contra?.errors?.required">
+        * Contraseña es requerida
+    </div>
+    <div *ngIf="contra?.errors?.minlength">
+        * Contraseña minimo debe ser de 8 caracteres
+    </div>
+</div>
+<label for="contra">Contraseña:</label>
+<input type="password" id="contra" formControlName="contra" ngModel>
+<div *ngIf="scontra?.invalid && scontra?.touched" class="alert">
+    <div *ngIf="scontra?.errors?.required">
+        * Contraseña es requerida
+    </div>
+    <div *ngIf="scontra?.errors?.minlength">
+        * Contraseña minimo debe ser de 8 caracteres
+    </div>
+    <div *ngIf="scontra?.errors?.compare">
+        * Contraseñas no son iguales
+    </div>
+</div>
+<label for="scontra">Confirmar contraseña:</label>
+<input type="password" id="scontra" formControlName="scontra" ngModel>
+<input type="submit" value="Registrar" [disabled]="empleadoForm.invalid">
+</form>

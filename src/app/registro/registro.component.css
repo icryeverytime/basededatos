@@ -18,9 +18,9 @@ input.ng-touched.ng-invalid{
     border: 2px solid red;
 }
 
-
-
-
+button:disabled{
+  opacity: 0.5;
+}
 * {box-sizing: border-box}
 
 /* Add padding to containers */
@@ -61,7 +61,7 @@ hr {
   opacity: 0.9;
 }
 
-.registerbtn:hover {
+.registerbtn:not(:disabled):hover {
   opacity:1;
 }
 

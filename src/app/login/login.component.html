@@ -1,0 +1,27 @@
+<form [formGroup]="userForm" #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value,userPost)">
+    <h1>Login</h1>
+    <div *ngIf="correo?.invalid && correo?.touched" class="alert">
+        <div *ngIf="correo?.errors?.required">
+            * El correo es requerido 
+        </div>
+        <div *ngIf="correo?.errors?.email">
+            * Ingresa un correo valido
+        </div>
+        <div *ngIf="correo?.errors?.invalid">
+            * No existe una cuenta con estas credenciales
+        </div> 
+    </div>
+    <label for="correo">Correo:</label>
+    <input type="email" id="correo" formControlName="correo" ngModel>
+    <div *ngIf="contra?.invalid && contra?.touched" class="alert">
+        <div *ngIf="contra?.errors?.required">
+            * La contraseña es requerida
+        </div>
+        <div *ngIf="contra?.errors?.minlength">
+            * La contraseña debe ser minimo 8 caracteres
+        </div>
+    </div>
+    <label for="contra">Contra:</label>
+    <input type="password" id="contra" formControlName="contra" ngModel>
+    <input type="submit" value="Login" [disabled]="userForm.invalid">
+</form>

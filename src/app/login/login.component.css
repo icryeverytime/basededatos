@@ -1,0 +1,19 @@
+form{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+input{
+    text-align: center;
+    padding: 2px 2px 2px 2px;
+}
+.alert{
+    color: red;
+    padding: 0px;
+    margin: 0px;
+}
+input.ng-touched.ng-invalid{
+    border: 2px solid red;
+}
