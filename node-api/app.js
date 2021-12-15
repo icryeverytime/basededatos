@@ -703,6 +703,87 @@ app.post("/Productoxmaquina", function(req,res){
     })
 })
 
+//API CONSULTAS
+app.post("/consultaRecibo", function(req,res){
+
+    let sql=`SELECT id_recibo as "ID_del_Recibo", FunTotalConIVA(${req.body.id}) as "Total_con_IVA" FROM recibo WHERE id_recibo=${req.body.id}`
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: '123456789',
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    if(err.sqlMessage.includes("Cliente.coreo"))
+                    {
+                        res.send("coreo")
+                        res.end
+                    }
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
+                }
+                else{
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
+
+app.post("/consultaTotales", function(req,res){
+
+    let sql=`SELECT avg(preciototal) as Promedio_total,sum(preciototal) as Suma FROM factura`;
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: '123456789',
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    if(err.sqlMessage.includes("Cliente.coreo"))
+                    {
+                        res.send("coreo")
+                        res.end
+                    }
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
+                }
+                else{
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
+
 app.listen(5000,(req,res)=>{
     console.log('Express API esta corriendo en el puerto 5000');
 });
