@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { IngredientesComponent } from './ingredientes/ingredientes.component';
 import { VistasComponent } from './vistas/vistas.component';
+import { FacturaComponent } from './factura/factura.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { VistasComponent } from './vistas/vistas.component';
     LoginComponent,
     EmpleadosComponent,
     IngredientesComponent,
-    VistasComponent
+    VistasComponent,
+    FacturaComponent
   ],
   imports: [
     BrowserModule,

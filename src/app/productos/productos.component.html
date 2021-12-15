@@ -1,30 +1,61 @@
 <h3 style="padding-top: 1%; padding-left: 1%;">Registro a Productos</h3>
-<form style="padding: 1%" class="">
+<form style="padding: 1%" class="" [formGroup]="productoForm" #productoPost="ngForm" (ngSubmit)="onSubmit(productoPost.value)">
     <div class="form-group w-50">
     <label for="name1">Nombre</label>
-    <input type="text" class="form-control" id="name1" placeholder="Nombre">
+    <input type="text" class="form-control" id="name1" placeholder="Nombre" formControlName="name1" ngModel>
     </div>
     <div class="form-group w-50">
       <label for="precio1">Precio</label>
-      <input type="number" class="form-control" id="precio1" placeholder="$">
+      <input type="number" class="form-control" id="precio1" placeholder="$" formControlName="precio1" ngModel>
     </div>
     <div class="form-group w-50">
-        <label for="cant1">Cantidad</label>
-        <input type="number" class="form-control" id="cant1" placeholder="#">
-        </div>
-    <div class="form-group w-50">
-    <label for="id1">Maquina para realizar el producto:</label>
+    <h3>Maquina para realizar el producto:</h3>
     <br>
     <div *ngFor="let datos of data2; let i=index">
-      <input id="maq_{{data2[i]['nombre']}}" value="{{data2[i]['nombre']}}" type="radio" name="maquina">
-      <label for="maq_{{data2[i]['nombre']}}"> {{data2[i]["nombre"]}}</label>
+      <label for="enum_answer_{{data2[i]['nombre']}}">
+        <input id="enum_answer_{{data2[i]['nombre']}}" value='{{data2[i]["nombre"]}}' type="radio" name="maquina" formControlName="maquina" ngModel>
+        {{data2[i]["nombre"]}}
+      </label>
     </div>
-    <label for="id1">Ingredientes a utilizar:</label>
-    <div *ngFor="let datos of data1; let i=index">
-      <input type="checkbox" id="{{data1[i]['nombre']}}" name="{{data1[i]['nombre']}}" value="{{data1[i]['nombre']}}">
-      <label for="{{data1[i]['nombre']}}">{{data1[i]['nombre']}}</label>
-    </div>
-    <input type="number" class="form-control" id="id1" placeholder="Id">
+    <h3>Ingredientes que lleva el producto:</h3>
+    <input type="checkbox" id="agua" name="agua" value="agua" formControlName="agua" ngModel>
+    <label for="agua">Taza de agua</label>
+    <br>
+    <input type="checkbox" id="azucar" name="azucar" value="azucar" formControlName="azucar" ngModel>
+    <label for="azucar">Taza de azucar</label>
+    <br>
+    <input type="checkbox" id="grenetina" name="grenetina" value="grenetina" formControlName="grenetina" ngModel>
+    <label for="grenetina">Grenetina</label>
+    <br>
+    <input type="checkbox" id="fresa" name="fresa" value="fresa" formControlName="fresa" ngModel>
+    <label for="fresa">Fresa</label>
+    <br>
+    <input type="checkbox" id="mango" name="mango" value="mango" formControlName="mango" ngModel>
+    <label for="mango">Mango</label>
+    <br>
+    <input type="checkbox" id="evaporada" name="evaporada" value="evaporada" formControlName="evaporada" ngModel>
+    <label for="evaporada">Leche evaporada</label>
+    <br>
+    <input type="checkbox" id="limon" name="limon" value="limon" formControlName="limon" ngModel>
+    <label for="limon">Jugo de limon</label>
+    <br>
+    <input type="checkbox" id="colorante" name="colorante" value="colorante" formControlName="colorante" ngModel>
+    <label for="colorante">Colorante verde</label>
+    <br>
+    <input type="checkbox" id="melon" name="melon" value="melon" formControlName="melon" ngModel>
+    <label for="melon">Melon</label>
+    <br>
+    <input type="checkbox" id="clara" name="clara" value="clara" formControlName="clara" ngModel>
+    <label for="clara">Clara de huevo</label>
+    <br>
+    <input type="checkbox" id="vanilla" name="vanilla" value="vanilla" formControlName="vanilla" ngModel>
+    <label for="azucar">Rama de vanilla</label>
+    <br>
+    <input type="checkbox" id="yema" name="yema" value="yema" formControlName="yema" ngModel>
+    <label for="yema">Yema de huevo</label>
+    <br>
+    <input type="checkbox" id="crema" name="crema" value="crema" formControlName="crema" ngModel>
+    <label for="crema">Crema</label>
     </div>
         <br>
     <input type="submit" class="btn btn-primary" value="Enviar">
