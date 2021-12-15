@@ -7,15 +7,18 @@ import { InventarioComponent } from './components/inventario/inventario.componen
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { RegistroComponent } from './registro/registro.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductosComponent } from './productos/productos.component';
 import { LoginComponent } from './login/login.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { IngredientesComponent } from './ingredientes/ingredientes.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     InventarioComponent,
     ProveedoresComponent,
     RegistroComponent,
+    ProductosComponent,
     LoginComponent,
     EmpleadosComponent,
     IngredientesComponent
