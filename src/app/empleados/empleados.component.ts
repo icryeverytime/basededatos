@@ -24,8 +24,19 @@ function validatePass(control:AbstractControl):ValidationErrors | null{
 })
 export class EmpleadosComponent implements OnInit {
   url='http://25.83.103.75:5000/registroE'
+  urlPut='http://25.83.103.75:5000/modificarE';
+  urlGet='http://25.83.103.75:5000/obtenerE';
+  urlDel='http://25.83.103.75:5000/eliminarE';
+  // url='http://localhost:5000/registroE'
+  // urlPut='http://localhost:5000/modificarE';
+  // urlGet='http://localhost:5000/obtenerE';
+  // urlDel='http://localhost:5000/eliminarE';
   public data:any=[]
   public json:any=[]
+  blnEdicion: Boolean = false;
+  blnConsulta: Boolean = false;
+  respGet: any = []
+
   empleadoForm=new FormGroup({
     nombre: new FormControl('',[Validators.required]),
     correo: new FormControl('',[Validators.required,Validators.email]),
@@ -57,25 +68,86 @@ export class EmpleadosComponent implements OnInit {
   onSubmit(data:any,formData:any)
   {
     console.log(data)
-    this.http.post(this.url,data,{responseType: 'text'}).subscribe((result)=>{
-      console.log(result)
-      if(result=="correo"){
-        formData.form.controls['correo'].setErrors({'invalid':true})
-      }
-      else if(result=="ingresado")
-      {
-        Swal.fire({
-          title: 'Cuenta creada exitosamente',
-          text: 'Ya puede hacer login para realizar compras',
-          icon: 'success',
-          confirmButtonText: 'Done'
-        }).then(function()
+    if(this.blnEdicion == false){
+      this.http.post(this.url,data,{responseType: 'text'}).subscribe((result)=>{
+        console.log(result)
+        if(result=="correo"){
+          formData.form.controls['correo'].setErrors({'invalid':true})
+        }
+        else if(result=="ingresado")
         {
-          window.location.href = "http://localhost:4200/login";
-        });
+          Swal.fire({
+            title: 'Cuenta creada exitosamente',
+            text: 'Ya puede hacer login para realizar compras',
+            icon: 'success',
+            confirmButtonText: 'Done'
+          }).then(function()
+          {
+            window.location.href = "http://localhost:4200/login";
+          });
+  
+        }
+      })
+    }else{
+      let dataPut = {
+        nombre: this.empleadoForm.get("nombre")?.value,
+        numerotelefono: this.empleadoForm.get("numero")?.value,
+        correo: this.empleadoForm.get("correo")?.value,
+        calle: this.empleadoForm.get("calle")?.value,
+        nuexterior: this.empleadoForm.get("nuexterior")?.value,
+        colonia: this.empleadoForm.get("colonia")?.value,
+        municipio: this.empleadoForm.get("municipio")?.value,
+        pais: this.empleadoForm.get("pais")?.value,
+        contra: this.empleadoForm.get("contra")?.value,
+        id_empleado: this.respGet[0]["id_empleado"]
+        }
+      this.http.post(this.urlPut,dataPut,{responseType: 'text'}).subscribe((result)=>{
+        console.log(result)
+      })
+    }
+  }
 
-      }
+  clickEdicion(){
+    console.log("Editando");
+    this.blnEdicion = !this.blnEdicion;
+    
+  }
+  
+  clickEliminar(){
+    let data = {
+      correo: this.respGet[0]["correo"],
+      id: this.respGet[0]["id_empleado"]
+    }
+    this.http.post(this.urlDel,data,{responseType: 'text'}).subscribe((result)=>{
+      console.log(result)
     })
   }
 
+  clickConsulta(){
+    this.blnConsulta = true;
+    let data = {
+      correo: this.empleadoForm.get("correo")?.value
+    }
+    console.log(this.empleadoForm.get("correo")?.value);
+    if(this.empleadoForm.get("correo")?.value != null){
+      this.http.post(this.urlGet,data,{responseType: 'text'}).subscribe((result)=>{
+        // console.log(result);
+        
+        this.respGet = JSON.parse(result);
+        console.log(this.respGet);
+        
+        if(this.respGet != []){
+          this.empleadoForm.get("nombre")?.setValue(this.respGet[0]["nombre"]);
+          this.empleadoForm.get("numero")?.setValue(this.respGet[0]["numerotelefono"]);
+          this.empleadoForm.get("nuexterior")?.setValue(this.respGet[0]["nuexterior"]);
+          this.empleadoForm.get("municipio")?.setValue(this.respGet[0]["municipio"]);
+          this.empleadoForm.get("pais")?.setValue(this.respGet[0]["pais"]);
+          this.empleadoForm.get("contra")?.setValue(this.respGet[0]["contra"]);
+          this.empleadoForm.get("calle")?.setValue(this.respGet[0]["calle"]);
+          this.empleadoForm.get("colonia")?.setValue(this.respGet[0]["colonia"]);
+        }
+      })
+    }
+    
+  }
 }

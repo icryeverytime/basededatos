@@ -18,10 +18,10 @@ app.post('/login',(req,res)=>{
     let sql2="SELECT correo FROM Empleado WHERE correo=? AND contra=?"
     console.log(req.body)
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: 'localhost',
+        user: 'root',
+        password: '123456789',
+        database: 'Paleteria'
     })
     con.connect(function(err){
         if(err)
@@ -292,7 +292,7 @@ app.post("/registro",function(req,res){
         }
     })
 })
-
+// APIS PROVEEDOR
 app.post("/modificarP", function(req,res){
 
     let sql=`UPDATE Proveedor SET nombre = "${req.body.nombre}" , numerotelefono = "${req.body.numerotelefono}", correo = "${req.body.correo}", cuentabancaria = "${req.body.cuentabancaria}", calle = "${req.body.calle}", nuexterior = "${req.body.nuexterior}", colonia = "${req.body.colonia}", municipio = "${req.body.municipio}", pais = "${req.body.pais}", num_id_fiscal = "${req.body.num_id_fiscal}" where id_proveedor = ${req.body.id_proveedor};`
@@ -462,6 +462,127 @@ app.post("/registroP", function(req,res){
         }
     })
 })
+// APIS EMPLEADO 
+app.post("/modificarE", function(req,res){
+    // let sql=`UPDATE Empleado SET nombre = "${req.body.nombre}", correo = "${req.body.correo}" , numerotelefono = "${req.body.numerotelefono}", calle = "${req.body.calle}", nuexterior = "${req.body.nuexterior}", colonia = "${req.body.colonia}", municipio = "${req.body.municipio}", pais = "${req.body.pais}", contra = "${req.body.contra}" where id_empleado = ${req.body.id_empleado};`
+    let sql = `call putEmpleado("${req.body.correo}",${req.body.id_empleado},"${req.body.nombre}","${req.body.correo}","${req.body.numerotelefono}","${req.body.calle}","${req.body.nuexterior}","${req.body.colonia}","${req.body.municipio}","${req.body.pais}","${req.body.contra}");`
+    var con=mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '123456789',
+        database: 'Paleteria'
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    if(err.sqlMessage.includes("Cliente.coreo"))
+                    {
+                        res.send("coreo")
+                        res.end
+                    }
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
+                }
+                else{
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
+
+app.post("/obtenerE", function(req,res){
+    let sql = `select * from Empleado where correo = "${req.body.correo}"`
+    var con=mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '123456789',
+        database: 'Paleteria'
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    if(err.sqlMessage.includes("Cliente.coreo"))
+                    {
+                        res.send("coreo")
+                        res.end
+                    }
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
+                }
+                else{
+                    res.send(JSON.stringify(result))
+                    res.end
+                }
+            })
+        }
+    })
+})
+
+app.post("/eliminarE",function(req,res){
+    // let sql = `delete from Empleado where id_empleado = "${req.body.id}"`
+    let sql = `call deleteEmpleado(${req.body.id},"${req.body.correo}")`
+    console.log('Consulta ', sql);
+    var con=mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '123456789',
+        database: 'Paleteria'
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    if(err.sqlMessage.includes("Cliente.coreo"))
+                    {
+                        res.send("coreo")
+                        res.end
+                    }
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
+                }
+                else{
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
+
 app.listen(5000,(req,res)=>{
     console.log('Express API esta corriendo en el puerto 5000');
 });
