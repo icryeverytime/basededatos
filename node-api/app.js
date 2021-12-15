@@ -582,6 +582,126 @@ app.post("/eliminarE",function(req,res){
         }
     })
 })
+// APIS VISTAS
+app.post("/Empleado_Ags", function(req,res){
+
+    let sql=`SELECT * FROM empleado_ags`
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: '123456789',
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    if(err.sqlMessage.includes("Cliente.coreo"))
+                    {
+                        res.send("coreo")
+                        res.end
+                    }
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
+                }
+                else{
+                    res.send(JSON.stringify(result))
+                    res.end
+                }
+            })
+        }
+    })
+})
+
+app.post("/Paletas", function(req,res){
+
+    let sql=`SELECT * FROM paletas`
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: '123456789',
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    if(err.sqlMessage.includes("Cliente.coreo"))
+                    {
+                        res.send("coreo")
+                        res.end
+                    }
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
+                }
+                else{
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
+
+app.post("/Productoxmaquina", function(req,res){
+
+    let sql=`SELECT * FROM productoxmaquina`
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: '123456789',
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    if(err.sqlMessage.includes("Cliente.coreo"))
+                    {
+                        res.send("coreo")
+                        res.end
+                    }
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
+                }
+                else{
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
 
 app.listen(5000,(req,res)=>{
     console.log('Express API esta corriendo en el puerto 5000');
