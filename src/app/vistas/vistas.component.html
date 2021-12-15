@@ -54,3 +54,16 @@
         </tbody>
   </table>
 </div>
+<div class="container" *ngIf="this.consulta2.length>0">
+  <p class="h5">Promedio total de las transacciones: {{this.getPromedio()}}</p>
+  <p class="h5">Suma total de las transacciones: {{this.getSuma()}}</p>
+</div>
+<div class="container">
+  <p class="h5">Consulta por id de recibo</p>
+  <input type="text" name="inputRecibo" #inputRecibo>
+  <button class="btn btn-warning" (click)="clickConsulta(inputRecibo.value)">Consultar</button>
+</div>
+<div class="container">
+  <p>ID consultado: {{this.getID()}}</p>
+  <p>Total con IVA: {{this.getTotalIVA()}}</p>
+</div>
