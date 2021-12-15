@@ -129,6 +129,38 @@ app.post('/registroE',function(req,res){
         }
     })
 })
+app.post('/ingredientes',function(req,res){
+    let sql='SELECT * FROM Ingredientes'
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fileds){
+                if(err)
+                {
+                    console.log(err)
+                    res.send(err)
+                    res.end
+                }
+                else{
+                    console.log(result)
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
 app.post("/registro",function(req,res){
     let post={
         Nombre:req.body.nombre,
