@@ -292,7 +292,266 @@ app.post("/registro",function(req,res){
         }
     })
 })
-
+app.post('/registroproducto',function(req,res){
+    console.log(req.body)
+    let sql='SELECT id_inventario FROM Inventario WHERE nombre=?'
+    let sql2='INSERT INTO Producto SET ?'
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,[req.body.maquina],function(err,result,fields){
+                if(err)
+                {
+                    console.log(err)
+                    res.send(err)
+                    res.end
+                }
+                else{
+                    console.log(result[0].id_inventario)
+                    let post={
+                        nombre: req.body.name1,
+                        precio: req.body.precio1,
+                        cantidad: 0,
+                        id_inv:  result[0].id_inventario
+                    }
+                    con.query(sql2,post,function(err,result,fields){
+                        if(err)
+                        {
+                            console.log(err)
+                            res.send(err)
+                            res.end
+                        }
+                        else{
+                            console.log(result.insertId)
+                            if(req.body.agua==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 1,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.azucar==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 2,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.grenetina==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 3,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.fresa==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 4,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.mango==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 5,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.evaporada==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 6,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.limon==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 7,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.colorante==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 8,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.melon==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 9,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.clara==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 10,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.vanilla==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 11,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.yema==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 12,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            if(req.body.crema==true)
+                            {
+                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let post2={
+                                    id_ingre: 13,
+                                    id_prod: result.insertId
+                                }
+                                con.query(sql4,post2,function(err,result,fields){
+                                    if(err)
+                                    {
+                                        console.log(err)
+                                        res.send(err)
+                                        res.end
+                                    }
+                                })
+                            }
+                            res.send("entregado")
+                            res.end
+                        }
+                    })
+                }
+            })
+        }
+    })
+    
+})
 app.post("/registroP", function(req,res){
     let post = {
         nombre: req.body.nombre,
