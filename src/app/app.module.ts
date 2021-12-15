@@ -11,6 +11,7 @@ import { ProductosComponent } from './productos/productos.component';
 import { LoginComponent } from './login/login.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { IngredientesComponent } from './ingredientes/ingredientes.component';
+import { VistasComponent } from './vistas/vistas.component';
 import { FacturaComponent } from './factura/factura.component';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { FacturaComponent } from './factura/factura.component';
     LoginComponent,
     EmpleadosComponent,
     IngredientesComponent,
+    VistasComponent,
     FacturaComponent
   ],
   imports: [

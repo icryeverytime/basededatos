@@ -1,0 +1,56 @@
+<div class="container">
+    <h3 class="h3">Empleados de Aguascalientes</h3>
+    <table class="table caption-top table-bordered table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Correo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let datos of vista1; let i=index">
+              <th scope="row" class="pt-4 pb-4">{{vista1[i]["id_empleado"]}}</th>
+              <td class="pt-4 pb-4">{{vista1[i]["nombre"]}}</td>
+              <td class="pt-4 pb-4">{{vista1[i]["correo"]}}</td>
+            </tr>
+            
+          </tbody>
+    </table>
+</div>
+<div class="container">
+    <h3 class="h3">Productos de inventario 2</h3>
+    <table class="table caption-top table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let datos of vista2; let i=index">
+            <td class="pt-4 pb-4">{{vista2[i]["nombre"]}}</td>
+            <td class="pt-4 pb-4">{{vista2[i]["precio"]}}</td>
+          </tr>
+          
+        </tbody>
+  </table>
+</div>
+<div class="container">
+    <h3 class="h3">Productos x Máquina/Inventario</h3>
+    <table class="table caption-top table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Máquina / Inventario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let datos of vista3; let i=index">
+            <td class="pt-4 pb-4">{{vista3[i]["nombre"]}}</td>
+            <td class="pt-4 pb-4">{{vista3[i]["Maquina"]}}</td>
+          </tr>
+          
+        </tbody>
+  </table>
+</div>

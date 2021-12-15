@@ -78,3 +78,6 @@
 <input type="password" id="scontra" formControlName="scontra" ngModel>
 <input type="submit" value="Registrar" [disabled]="empleadoForm.invalid">
 </form>
+<button class="btn btn-primary" (click)="clickEdicion()">Editar</button>
+<button class="btn btn-primary ms-2" (click)="clickConsulta()">Consultar</button>
+<button class="btn btn-danger ms-2" (click)="clickEliminar()" *ngIf="blnConsulta">Eliminar consulta</button>
