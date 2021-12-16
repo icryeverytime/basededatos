@@ -3,6 +3,7 @@ const app=express()
 const cors=require('cors')
 const moment= require('moment') 
 const mysql=require('mysql')
+const { send } = require('process')
 app.use(cors())
 app.options('*',cors())
 app.use(express.json());
@@ -14,6 +15,91 @@ app.use(function (req, res, next) {
     res.header("Content-Security-Policy", "script-src 'self' https://apis.google.com");
     next();
 });
+app.post("/aprueba",(req,res)=>{
+    console.log("")
+    res.send("hola")
+    
+})
+app.post("/agregarproductos",(req,res)=>{
+    console.log(req.body[0].id)
+    let sql="UPDATE Producto SET cantidad=cantidad+1 WHERE id_producto=?"
+    let sql2="SELECT id_ingre FROM Inv_Ingr WHERE id_prod=?"
+    let sql3="UPDATE Ingredientes SET cantidad=cantidad-1 WHERE id_ingredientes=?"
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+        }
+        else{
+            con.query(sql,[req.body[0].id],function(err,result,fields){
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    console.log(result)
+                    con.query(sql2,[req.body[0].id],function(err,result,fields){
+                        if(err)
+                        {
+                            console.log(err)
+                        }
+                        else{
+                            console.log(result)
+                            for(let i=0;i<result.length;i++)
+                            {
+                                con.query(sql3,[result[i].id_ingre],function(err,result,fields){
+                                    if(err){
+                                        console.log(err)
+                                    }
+                                })
+                            }
+                            res.send("ingresado")
+                                res.end()
+                        }
+                    })
+                }
+            })
+        }
+    })
+})
+app.post("/aprobar",(req,res)=>{
+    sql="SELECT * FROM Recibo WHERE id_empleado IS NULL"
+    var con=mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "123456789",
+        database: "Paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log("que?")
+            console.log(err)
+            res.send(err)
+            res,end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    console.log("aquiu?")
+                    console.log(err)
+                    res.send(err)
+                    res.end
+                }
+                else{
+                    console.log(res)
+                    res.send(result)
+                }
+            })
+        }
+    })
+})
 app.post("/compraproductos",(req,res)=>{
     console.log(req.body)
     let sql2="SELECT * FROM Producto WHERE id_producto=?"
@@ -60,7 +146,8 @@ app.post("/compraproductos",(req,res)=>{
                         fecha: current,
                         precio: precio,
                         iva: iva,
-                        preciototal: preciototal
+                        preciototal: preciototal,
+                        id_empleado: 1
                     })
                     con.query(sql,post,function(err,result,fields){
                         if(err)
@@ -1186,7 +1273,7 @@ app.post("/Productoxmaquina", function(req,res){
 //API CONSULTAS
 app.post("/consultaRecibo", function(req,res){
 
-    let sql=`SELECT id_recibo as "ID_del_Recibo", FunTotalConIVA(${req.body.id}) as "Total_con_IVA" FROM recibo WHERE id_recibo=${req.body.id}`
+    let sql=`SELECT id_recibo as "ID_del_Recibo", FunTotalConIVA(1) as "Total_con_IVA" FROM Recibo WHERE id_recibo=1`
     var con=mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -1226,7 +1313,7 @@ app.post("/consultaRecibo", function(req,res){
 
 app.post("/consultaTotales", function(req,res){
 
-    let sql=`SELECT avg(preciototal) as Promedio_total,sum(preciototal) as Suma FROM factura`;
+    let sql=`SELECT avg(preciototal) as Promedio_total,sum(preciototal) as Suma FROM Factura`;
     var con=mysql.createConnection({
         host: "localhost",
         user: "root",

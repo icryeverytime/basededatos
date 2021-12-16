@@ -7,7 +7,7 @@
           <th scope="col">Nombre</th>
           <th scope="col">Cantidad</th>
           <th scope="col">Precio</th>
-          <th scope="col">Comprar</th>
+          <th scope="col">Add</th>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +20,7 @@
             <form [formGroup]="compraForm" #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value,i)">
                 <label for="numero">Cantidad de:</label>
                 <input type="number" min="1" id="numero" max='1' formControlName="numero" ngModel>
-                <input type="submit" value="Comprar">
+                <input type="submit" value="ADD">
             </form>
           </td>
         </tr>

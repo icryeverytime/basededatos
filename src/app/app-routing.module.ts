@@ -12,6 +12,8 @@ import { VistasComponent } from './vistas/vistas.component';
 
 import { FacturaComponent } from './factura/factura.component';
 import { HomeComponent } from './home/home.component';
+import { AprobarComponent } from './aprobar/aprobar.component';
+import { AddproductoComponent } from './addproducto/addproducto.component';
 const routes: Routes = [
   {path: 'inventario', component: InventarioComponent},
   {path: 'proveedores', component: ProveedoresComponent},
@@ -22,7 +24,9 @@ const routes: Routes = [
   {path: 'ingredientes',component: IngredientesComponent},
   {path: 'vistas',component: VistasComponent},
   {path: 'factura/:ingrediente',component: FacturaComponent},
-  {path: '',component: HomeComponent}  
+  {path: '',component: HomeComponent},
+  {path: 'aprobar',component: AprobarComponent},
+  {path: 'addproducto',component: AddproductoComponent}  
 
 ];
 

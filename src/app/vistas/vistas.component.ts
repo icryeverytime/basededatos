@@ -48,19 +48,14 @@ export class VistasComponent implements OnInit {
       console.log(result)
       this.consulta2 = JSON.parse(result);
     })
-  }
-
-  clickConsulta(inputRecibo: any){
-    if(inputRecibo != ''){
-      this.data = {id: inputRecibo}
-    }
-    console.log(inputRecibo);
     
     this.http.post(this.urlC1,this.data,{responseType: 'text'}).subscribe((result)=>{
       console.log(result)
       this.consulta1 = JSON.parse(result);
     })
   }
+
+  
 
   getPromedio(){
     if(this.consulta2 == []){

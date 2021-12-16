@@ -68,6 +68,7 @@ export class EmpleadosComponent implements OnInit {
   onSubmit(data:any,formData:any)
   {
     console.log(data)
+    console.log(this.blnEdicion)
     if(this.blnEdicion == false){
       this.http.post(this.url,data,{responseType: 'text'}).subscribe((result)=>{
         console.log(result)
