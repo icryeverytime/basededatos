@@ -1,0 +1,28 @@
+<table class="table caption-top table-bordered table-hover">
+    <caption style="text-align: center;">Inventario de la paleteria</caption>
+
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Comprar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let datos of data2; let i=index" >
+          <th scope="row" class="pt-4 pb-4">{{data2[i]["id_producto"]}}</th>
+          <td class="pt-4 pb-4">{{data2[i]["nombre"]}}</td>
+          <td class="pt-4 pb-4">{{data2[i]["cantidad"]}}</td>
+          <td class="pt-4 pb-4">{{data2[i]["precio"]}}</td>
+          <td class="pt-4 pb-4">
+            <form [formGroup]="compraForm" #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value,i)">
+                <label for="numero">Cantidad de:</label>
+                <input type="number" min="1" id="numero" max='1' formControlName="numero" ngModel>
+                <input type="submit" value="Comprar">
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>

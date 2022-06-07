@@ -54,3 +54,8 @@
         </tbody>
   </table>
 </div>
+<div class="container" *ngIf="this.consulta2.length>0">
+  <p class="h5">Promedio total de las transacciones: {{this.getPromedio()}}</p>
+  <p class="h5">Suma total de las transacciones: {{this.getSuma()}}</p>
+</div>
+

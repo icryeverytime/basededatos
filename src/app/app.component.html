@@ -23,7 +23,15 @@
           <a class="nav-link" *ngIf="readLocalStorageValue()" [routerLink]="['productos']">Productos</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" *ngIf="readLocalStorageValue()" [routerLink]="['addproducto']">Add Productos</a>
+        </li>
+        <li class="nav-item">
+
           <a class="nav-link" [routerLink]="['vistas']">Vistas generales</a>
+       </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="readLocalStorageValue()" [routerLink]="['ingredientes']">Ingredientes</a>
+
         </li>
         <li class="nav-item" style="float: right;">
           <a class="nav-link" *ngIf="loggedin()" [routerLink]="['registro']">Registro</a>
