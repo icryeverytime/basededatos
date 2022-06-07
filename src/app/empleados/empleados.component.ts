@@ -23,14 +23,14 @@ function validatePass(control:AbstractControl):ValidationErrors | null{
   styleUrls: ['./empleados.component.css']
 })
 export class EmpleadosComponent implements OnInit {
-  url='http://25.83.103.75:5000/registroE'
-  urlPut='http://25.83.103.75:5000/modificarE';
-  urlGet='http://25.83.103.75:5000/obtenerE';
-  urlDel='http://25.83.103.75:5000/eliminarE';
-  // url='http://localhost:5000/registroE'
-  // urlPut='http://localhost:5000/modificarE';
-  // urlGet='http://localhost:5000/obtenerE';
-  // urlDel='http://localhost:5000/eliminarE';
+  // url='http://25.83.103.75:5000/registroE'
+  // urlPut='http://25.83.103.75:5000/modificarE';
+  // urlGet='http://25.83.103.75:5000/obtenerE';
+  // urlDel='http://25.83.103.75:5000/eliminarE';
+  url='http://localhost:5000/registroE'
+  urlPut='http://localhost:5000/modificarE';
+  urlGet='http://localhost:5000/obtenerE';
+  urlDel='http://localhost:5000/eliminarE';
   public data:any=[]
   public json:any=[]
   blnEdicion: Boolean = false;
