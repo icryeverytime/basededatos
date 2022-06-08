@@ -1,7 +1,6 @@
 const express=require('express')
 const app=express()
 const cors=require('cors')
-const moment= require('moment') 
 const mysql=require('mysql')
 const { send } = require('process')
 app.use(cors())
@@ -26,10 +25,10 @@ app.post("/agregarproductos",(req,res)=>{
     let sql2="SELECT id_ingre FROM Inv_Ingr WHERE id_prod=?"
     let sql3="UPDATE Ingredientes SET cantidad=cantidad-1 WHERE id_ingredientes=?"
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.206.235",
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -68,12 +67,12 @@ app.post("/agregarproductos",(req,res)=>{
     })
 })
 app.post("/aprobar",(req,res)=>{
-    sql="SELECT * FROM Recibo WHERE id_empleado IS NULL"
+    sql="SELECT * FROM recibo WHERE id_empleado IS NULL"
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -103,8 +102,8 @@ app.post("/aprobar",(req,res)=>{
 app.post("/compraproductos",(req,res)=>{
     console.log(req.body)
     let sql2="SELECT * FROM Producto WHERE id_producto=?"
-    let sql="INSERT INTO Recibo SET ?"
-    let sql3="INSERT INTO Orden SET ?"
+    let sql="INSERT INTO recibo SET ?"
+    let sql3="INSERT INTO orden SET ?"
     let sql4="SELECT id_cliente FROM Cliente WHERE correo=?"
     let ts=Date.now()
     let precio
@@ -114,11 +113,19 @@ app.post("/compraproductos",(req,res)=>{
     let year=date_time.getFullYear()
     let current=year+"-"+month+"-"+date
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.206.235",
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
     })
+
+    var conLnx=mysql.createConnection({
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
+    })
+
     con.connect(function(err){
         if(err)
         {
@@ -149,7 +156,7 @@ app.post("/compraproductos",(req,res)=>{
                         preciototal: preciototal,
                         id_empleado: 1
                     })
-                    con.query(sql,post,function(err,result,fields){
+                    conLnx.query(sql,post,function(err,result,fields){
                         if(err)
                         {
                             console.log(err)
@@ -170,7 +177,7 @@ app.post("/compraproductos",(req,res)=>{
                                         id_recibo:reciboid,
                                         id_cliente:idcliente
                                     })
-                                    con.query(sql3,post2,function(err,result,fields){
+                                    conLnx.query(sql3,post2,function(err,result,fields){
                                         if(err)
                                         {
                                             console.log(err)
@@ -221,10 +228,10 @@ app.post('/factura',(req,res)=>{
         preciototal: total
     })
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.206.235",
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -253,10 +260,10 @@ app.post('/factura',(req,res)=>{
 app.post('/prove',(req,res)=>{
     let sql='SELECT * FROM Proveedor'
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        hhost: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -284,13 +291,20 @@ app.post('/prove',(req,res)=>{
 })
 app.post('/login',(req,res)=>{
     let sql="SELECT correo FROM Cliente WHERE correo=? AND contra=?"
-    let sql2="SELECT correo FROM Empleado WHERE correo=? AND contra=?"
+    let sql2="SELECT correo FROM empleado WHERE correo=? AND contra=?"
     console.log(req.body)
     var con=mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '123456789',
-        database: 'Paleteria'
+        host: '25.47.206.235',
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
+    })
+
+    var conLnx=mysql.createConnection({
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -299,7 +313,7 @@ app.post('/login',(req,res)=>{
             res.end
         }
         else{
-            con.query(sql2,[req.body.correo,req.body.contra],function(err,result,fields){
+            conLnx.query(sql2,[req.body.correo,req.body.contra],function(err,result,fields){
               if(err)
               {
                   console.log(err)
@@ -348,14 +362,22 @@ app.post('/registroE',function(req,res){
         contra: req.body.contra
     }
     let sql="SELECT correo FROM Cliente WHERE Correo=?"
-    let sql2='INSERT INTO Empleado SET ?'
-    let sql3="SELECT correo FROM Empleado WHERE Correo=?"
+    let sql2='INSERT INTO empleado SET ?'
+    let sql3="SELECT correo FROM empleado WHERE Correo=?"
     var con=mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '123456789',
-        database: 'Paleteria'
+        host: '25.47.206.235',
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
     })
+
+    var conLnx=mysql.createConnection({
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
+    })
+
     con.connect(function(err){
         if(err)
         {
@@ -377,7 +399,7 @@ app.post('/registroE',function(req,res){
                         res.end
                     }
                     else{
-                        con.query(sql2,post,function(err,result,fields){
+                        conLnx.query(sql2,post,function(err,result,fields){
                             console.log(err)
                             if(err)
                             {
@@ -408,10 +430,10 @@ app.post('/inventario',function(req,res){
         anio: req.body.year1
     }
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.206.235",
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -472,10 +494,10 @@ app.post('/ingredientes',function(req,res){
 app.post('/getinventario',function(req,res){
     let sql='SELECT * FROM Inventario'
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.206.235",
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -508,14 +530,23 @@ app.post("/registro",function(req,res){
         contra:req.body.contra,
         numerotelefono:req.body.numero
     }
-    let sql2="SELECT correo FROM Empleado WHERE correo=?"
+    let sql2="SELECT correo FROM empleado WHERE correo=?"
     let sql='INSERT INTO Cliente SET ?'
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.206.235",
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
     })
+
+    var con=mysql.createConnection({
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
+    })
+
+
     con.connect(function(err){
         if(err)
         {
@@ -524,7 +555,7 @@ app.post("/registro",function(req,res){
             res.end
         }
         else{
-            con.query(sql2,[req.body.correo],function(err,result,fields){
+            conLnx.query(sql2,[req.body.correo],function(err,result,fields){
                 if(err)
                 {
                     res.send(err)
@@ -561,16 +592,15 @@ app.post("/registro",function(req,res){
         }
     })
 })
-
 // APIS PROVEEDOR
 app.post("/modificarP", function(req,res){
 
-    let sql=`UPDATE Proveedor SET nombre = "${req.body.nombre}" , numerotelefono = "${req.body.numerotelefono}", correo = "${req.body.correo}", cuentabancaria = "${req.body.cuentabancaria}", calle = "${req.body.calle}", nuexterior = "${req.body.nuexterior}", colonia = "${req.body.colonia}", municipio = "${req.body.municipio}", pais = "${req.body.pais}", num_id_fiscal = "${req.body.num_id_fiscal}" where id_proveedor = ${req.body.id_proveedor};`
- var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+    let sql=`UPDATE proveedor SET nombre = "${req.body.nombre}" , numerotelefono = "${req.body.numerotelefono}", correo = "${req.body.correo}", cuentabancaria = "${req.body.cuentabancaria}", calle = "${req.body.calle}", nuexterior = "${req.body.nuexterior}", colonia = "${req.body.colonia}", municipio = "${req.body.municipio}", pais = "${req.body.pais}", num_id_fiscal = "${req.body.num_id_fiscal}" where id_proveedor = ${req.body.id_proveedor};`
+    var con=mysql.createConnection({
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -580,7 +610,7 @@ app.post("/modificarP", function(req,res){
             res.end
         }
         else{
-           con.query(sql,function(err,result,fields){
+            con.query(sql,function(err,result,fields){
                 if(err)
                 {
                     if(err.sqlMessage.includes("Cliente.correo"))
@@ -604,12 +634,12 @@ app.post("/modificarP", function(req,res){
 })
 
 app.post("/obtenerP", function(req,res){
-    let sql = `select * from Proveedor where correo = "${req.body.correo}"`
+    let sql = `select * from proveedor where correo = "${req.body.correo}"`
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -643,13 +673,13 @@ app.post("/obtenerP", function(req,res){
 })
 
 app.post("/eliminarP",function(req,res){
-    let sql = `delete from Proveedor where id_proveedor = "${req.body.id}"`
+    let sql = `delete from proveedor where id_proveedor = "${req.body.id}"`
     console.log('Consulta ', sql);
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -688,10 +718,10 @@ app.post('/registroproducto',function(req,res){
     let sql2='INSERT INTO Producto SET ?'
 
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.206.235",
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -943,8 +973,6 @@ app.post('/registroproducto',function(req,res){
             })
         }
     })
-
-    
 })
 
 app.post("/registroP", function(req,res){
@@ -960,12 +988,12 @@ app.post("/registroP", function(req,res){
         pais: req.body.pais,
         num_id_fiscal: req.body.num_id_fiscal
     }
-    let sql='INSERT INTO Proveedor SET ?'
+    let sql='INSERT INTO proveedor SET ?'
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "123456789",
-        database: "Paleteria"
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -1004,7 +1032,8 @@ app.post("/modificarE", function(req,res){
     var con=mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: '123456789',
+        password: '',
+        port: 3310,
         database: 'Paleteria'
     })
     con.connect(function(err){
@@ -1039,12 +1068,12 @@ app.post("/modificarE", function(req,res){
 })
 
 app.post("/obtenerE", function(req,res){
-    let sql = `select * from Empleado where correo = "${req.body.correo}"`
+    let sql = `select * from empleado where correo = "${req.body.correo}"`
     var con=mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '123456789',
-        database: 'Paleteria'
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -1078,14 +1107,14 @@ app.post("/obtenerE", function(req,res){
 })
 
 app.post("/eliminarE",function(req,res){
-    // let sql = `delete from Empleado where id_empleado = "${req.body.id}"`
-    let sql = `call deleteEmpleado(${req.body.id},"${req.body.correo}")`
+    let sql = `delete from empleado where id_empleado = "${req.body.id}"`
+    // let sql = `call deleteEmpleado(${req.body.id},"${req.body.correo}")`
     console.log('Consulta ', sql);
     var con=mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '123456789',
-        database: 'Paleteria'
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -1118,12 +1147,12 @@ app.post("/eliminarE",function(req,res){
     })
 })
 app.post("/getproductos",function(req,res){
-    let sql='SELECT * FROM Producto'
+    let sql='SELECT * FROM producto'
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: '123456789',
-        database: "Paleteria"
+        host: "25.47.206.235",
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -1156,7 +1185,8 @@ app.post("/Empleado_Ags", function(req,res){
     var con=mysql.createConnection({
         host: "localhost",
         user: "root",
-        password: '123456789',
+        password: '',
+        port: 3310,
         database: "Paleteria"
     })
     con.connect(function(err){
@@ -1196,7 +1226,8 @@ app.post("/Paletas", function(req,res){
     var con=mysql.createConnection({
         host: "localhost",
         user: "root",
-        password: '123456789',
+        password: '',
+        port: 3310,
         database: "Paleteria"
     })
     con.connect(function(err){
@@ -1236,7 +1267,8 @@ app.post("/Productoxmaquina", function(req,res){
     var con=mysql.createConnection({
         host: "localhost",
         user: "root",
-        password: '123456789',
+        password: '',
+        port: 3310,
         database: "Paleteria"
     })
     con.connect(function(err){
@@ -1273,12 +1305,12 @@ app.post("/Productoxmaquina", function(req,res){
 //API CONSULTAS
 app.post("/consultaRecibo", function(req,res){
 
-    let sql=`SELECT id_recibo as "ID_del_Recibo", FunTotalConIVA(1) as "Total_con_IVA" FROM Recibo WHERE id_recibo=1`
+    let sql=`SELECT id_recibo as "ID_del_Recibo", FunTotalConIVA(1) as "Total_con_IVA" FROM recibo WHERE id_recibo=1`
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: '123456789',
-        database: "Paleteria"
+        host: "25.47.154.70",
+        user: "lnxarchictec",
+        password: "AL258227ed@_",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
@@ -1315,10 +1347,10 @@ app.post("/consultaTotales", function(req,res){
 
     let sql=`SELECT avg(preciototal) as Promedio_total,sum(preciototal) as Suma FROM Factura`;
     var con=mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: '123456789',
-        database: "Paleteria"
+        host: "25.47.206.235",
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
     })
     con.connect(function(err){
         if(err)
