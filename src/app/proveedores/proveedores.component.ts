@@ -10,10 +10,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent implements OnInit {
-  url='http://25.83.103.75:5000/registroP';
-  urlPut='http://25.83.103.75:5000/modificarP';
-  urlGet='http://25.83.103.75:5000/obtenerP';
-  urlDel='http://25.83.103.75:5000/eliminarP';
+  url='http://25.48.185.136:5000/registroP';
+  urlPut='http://25.48.185.136:5000/modificarP';
+  urlGet='http://25.48.185.136:5000/obtenerP';
+  urlDel='http://25.48.185.136:5000/eliminarP';
   // url='http://localhost:5000/registroP';
   // urlPut='http://localhost:5000/modificarP';
   // urlGet='http://localhost:5000/obtenerP';

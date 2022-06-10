@@ -8,11 +8,11 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./vistas.component.css']
 })
 export class VistasComponent implements OnInit {
-  urlV1 = 'http://25.83.103.75:5000/Empleado_Ags';
-  urlV2 = 'http://25.83.103.75:5000/Paletas';
-  urlV3 = 'http://25.83.103.75:5000/Productoxmaquina';
-  urlC1 = 'http://25.83.103.75:5000/consultaRecibo';
-  urlC2 = 'http://25.83.103.75:5000/consultaTotales';
+  urlV1 = 'http://25.48.185.136:5000/Empleado_Ags';
+  urlV2 = 'http://25.48.185.136:5000/Paletas';
+  urlV3 = 'http://25.48.185.136:5000/Productoxmaquina';
+  urlC1 = 'http://25.48.185.136:5000/consultaRecibo';
+  urlC2 = 'http://25.48.185.136:5000/consultaTotales';
   // urlV1 = 'http://localhost:5000/Empleado_Ags';
   // urlV2 = 'http://localhost:5000/Paletas';
   // urlV3 = 'http://localhost:5000/Productoxmaquina'

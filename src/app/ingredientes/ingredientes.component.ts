@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IngredientesComponent implements OnInit {
 
-  url='http://25.83.103.75:5000/ingredientes'
+  url='http://25.48.185.136:5000/ingredientes'
   data:any
   constructor(private http:HttpClient) { }
   ngOnInit(): void {

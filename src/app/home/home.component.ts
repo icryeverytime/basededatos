@@ -8,8 +8,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  url2='http://25.83.103.75:5000/getproductos'
-  url1="http://25.83.103.75:5000/compraproductos"
+  url2='http://25.48.185.136:5000/getproductos'
+  url1="http://25.48.185.136:5000/compraproductos"
   data2:any
   user=localStorage.getItem('cliente')
   constructor(private http: HttpClient) { }

@@ -8,8 +8,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./addproducto.component.css']
 })
 export class AddproductoComponent implements OnInit {
-  url2='http://25.83.103.75:5000/getproductos'
-  url1='http://25.83.103.75:5000/agregarproductos'
+  url2='http://25.48.185.136:5000/getproductos'
+  url1='http://25.48.185.136:5000/agregarproductos'
   constructor(private http:HttpClient) { }
   data2:any
   ngOnInit(): void {

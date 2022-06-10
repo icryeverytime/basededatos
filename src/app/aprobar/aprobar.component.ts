@@ -7,8 +7,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./aprobar.component.css']
 })
 export class AprobarComponent implements OnInit {
-  url='http://25.83.103.75:5000/aprobar'
-  url2='http://25.83.103.75:5000/aprueba'
+  url='http://25.48.185.136:5000/aprobar'
+  url2='http://25.48.185.136:5000/aprueba'
 
   constructor(private http:HttpClient) { }
   data2:any

@@ -9,9 +9,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent implements OnInit {
-  url2='http://25.83.103.75:5000/getinventario'
-  url1='http://25.83.103.75:5000/ingredientes'
-  url3='http://25.83.103.75:5000/registroproducto'
+  url2='http://25.48.185.136:5000/getinventario'
+  url1='http://25.48.185.136:5000/ingredientes'
+  url3='http://25.48.185.136:5000/registroproducto'
   public data:any=[]
   data1:any
   data2:any

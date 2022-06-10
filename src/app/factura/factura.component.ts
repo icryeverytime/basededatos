@@ -10,8 +10,8 @@ import {FormGroup,FormControl, Validators, AbstractControl,ValidationErrors} fro
   styleUrls: ['./factura.component.css']
 })
 export class FacturaComponent implements OnInit {
-  url='http://25.83.103.75:5000/prove'
-  url2='http://25.83.103.75:5000/factura'
+  url='http://25.48.185.136:5000/prove'
+  url2='http://25.48.185.136:5000/factura'
   User:any
   data:any
   constructor(private route:ActivatedRoute,private http:HttpClient) { 

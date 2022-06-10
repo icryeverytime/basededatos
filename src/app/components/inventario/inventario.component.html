@@ -29,6 +29,7 @@
             <th scope="col">Cantidad</th>
             <th scope="col">Precio</th>
             <th scope="col">Año</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +39,7 @@
             <td class="pt-4 pb-4">{{data2[i]["cantidad"]}}</td>
             <td class="pt-4 pb-4">{{data2[i]["precio"]}}</td>
             <td class="pt-4 pb-4">{{data2[i]["anio"]}}</td>
+            <td class="pt-4 pb-4"><button class="btn btn-danger" (click)="eliminarInv(data2[i]['id_inventario'])">Eliminar</button></td>
           </tr>
           
         </tbody>

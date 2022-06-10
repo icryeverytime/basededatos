@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  url='http://25.83.103.75:5000/login'
+  url='http://25.48.185.136:5000/login'
   public data:any=[]
   public json:any=[]
 

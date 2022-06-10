@@ -10,8 +10,9 @@ import Swal from 'sweetalert2';
 export class InventarioComponent implements OnInit {
   data2:any
   index:any
-  url='http://25.83.103.75:5000/inventario'
-  url2='http://25.83.103.75:5000/getinventario'
+  url='http://25.48.185.136:5000/inventario'
+  url2='http://25.48.185.136:5000/getinventario'
+  url3='http://25.48.185.136:5000/eliminarInventario'
   constructor(private http: HttpClient) { 
     
   }
@@ -50,5 +51,15 @@ export class InventarioComponent implements OnInit {
           });
         }
       })
+  }
+  eliminarInv(id: any){
+    console.log(id);
+    let data = {
+      id: id
+    }
+    this.http.post(this.url3,data,{responseType: 'text'}).subscribe((result)=>{
+      console.log(result)
+    
+    })
   }
 }

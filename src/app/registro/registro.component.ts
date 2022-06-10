@@ -23,7 +23,7 @@ function validatePass(control:AbstractControl):ValidationErrors | null{
 })
 export class RegistroComponent implements OnInit {
 
-  url='http://25.83.103.75:5000/registro'
+  url='http://25.48.185.136:5000/registro'
   public data:any=[]
   public json:any=[]
   constructor(private router: Router,private http: HttpClient) { }

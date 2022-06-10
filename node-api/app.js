@@ -70,7 +70,7 @@ app.post("/aprobar",(req,res)=>{
     sql="SELECT * FROM recibo WHERE id_empleado IS NULL"
     var con=mysql.createConnection({
         host: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -121,7 +121,7 @@ app.post("/compraproductos",(req,res)=>{
 
     var conLnx=mysql.createConnection({
         host: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -261,7 +261,7 @@ app.post('/prove',(req,res)=>{
     let sql='SELECT * FROM Proveedor'
     var con=mysql.createConnection({
         hhost: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -290,8 +290,7 @@ app.post('/prove',(req,res)=>{
     })
 })
 app.post('/login',(req,res)=>{
-    let sql="SELECT correo FROM Cliente WHERE correo=? AND contra=?"
-    let sql2="SELECT correo FROM empleado WHERE correo=? AND contra=?"
+    let sql="SELECT correo FROM cliente WHERE correo=? AND contra=?";
     console.log(req.body)
     var con=mysql.createConnection({
         host: '25.47.206.235',
@@ -300,21 +299,17 @@ app.post('/login',(req,res)=>{
         database: "paleteria"
     })
 
-    var conLnx=mysql.createConnection({
-        host: "25.47.154.70",
-        user: "lnxarchictec",
-        password: "AL258227ed@_",
-        database: "paleteria"
-    })
     con.connect(function(err){
         if(err)
         {
             res.send(err)
             res.end
+            console.log("result");
         }
         else{
-            conLnx.query(sql2,[req.body.correo,req.body.contra],function(err,result,fields){
-              if(err)
+            con.query(sql,[req.body.correo,req.body.contra],function(err,result,fields){
+              console.log(result);
+                if(err)
               {
                   console.log(err)
                   res.send(err)
@@ -325,25 +320,6 @@ app.post('/login',(req,res)=>{
                   res.send("empleado "+result[0].correo)
                   res.end               
               }  
-              else{
-                  con.query(sql,[req.body.correo,req.body.contra],function(err,result,fields){
-                      if(err)
-                      {
-                          console.log(err)
-                          res.send(err)
-                          res.end
-                      }
-                      if(result.length>0)
-                      {
-                          res.send("cliente "+result[0].correo)
-                          res.end
-                      }
-                      else{
-                          res.send("nada")
-                          res.end
-                      }
-                  })
-              }
             })
         }
     })
@@ -373,7 +349,7 @@ app.post('/registroE',function(req,res){
 
     var conLnx=mysql.createConnection({
         host: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -525,13 +501,12 @@ app.post('/getinventario',function(req,res){
 })
 app.post("/registro",function(req,res){
     let post={
-        Nombre:req.body.nombre,
+        nombre:req.body.nombre,
         correo:req.body.correo,
         contra:req.body.contra,
         numerotelefono:req.body.numero
     }
-    let sql2="SELECT correo FROM empleado WHERE correo=?"
-    let sql='INSERT INTO Cliente SET ?'
+    let sql='INSERT INTO cliente SET ?'
     var con=mysql.createConnection({
         host: "25.47.206.235",
         user: "winarchitect",
@@ -539,13 +514,12 @@ app.post("/registro",function(req,res){
         database: "paleteria"
     })
 
-    var con=mysql.createConnection({
-        host: "25.47.154.70",
-        user: "lnxarchictec",
-        password: "AL258227ed@_",
-        database: "paleteria"
-    })
-
+    // var conLnx=mysql.createConnection({
+    //     host: "25.47.154.70",
+    //     user: "lnxarchitect",
+    //     password: "AL258227ed@_",
+    //     database: "paleteria"
+    // })
 
     con.connect(function(err){
         if(err)
@@ -555,38 +529,25 @@ app.post("/registro",function(req,res){
             res.end
         }
         else{
-            conLnx.query(sql2,[req.body.correo],function(err,result,fields){
+            con.query(sql,post,function(err,result,fields){
+                console.log(result);
                 if(err)
                 {
-                    res.send(err)
-                    res.end
+                    if(err.sqlMessage.includes("Cliente.correo"))
+                    {
+                        res.send("correo")
+                        res.end
+                    }
+      
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
                 }
-                if(result.length>0)
-                {
-                    res.send("correo")
+                else{
+                    res.send(result)
                     res.end
-                }
-                else
-                {
-                    con.query(sql,post,function(err,result,fields){
-                        if(err)
-                        {
-                            if(err.sqlMessage.includes("Cliente.correo"))
-                            {
-                                res.send("correo")
-                                res.end
-                            }
-                            else{
-                                console.log(err)
-                                res.send(err)
-                                res.end
-                            }
-                        }
-                        else{
-                            res.send(result)
-                            res.end
-                        }
-                    })
                 }
             })
         }
@@ -598,7 +559,7 @@ app.post("/modificarP", function(req,res){
     let sql=`UPDATE proveedor SET nombre = "${req.body.nombre}" , numerotelefono = "${req.body.numerotelefono}", correo = "${req.body.correo}", cuentabancaria = "${req.body.cuentabancaria}", calle = "${req.body.calle}", nuexterior = "${req.body.nuexterior}", colonia = "${req.body.colonia}", municipio = "${req.body.municipio}", pais = "${req.body.pais}", num_id_fiscal = "${req.body.num_id_fiscal}" where id_proveedor = ${req.body.id_proveedor};`
     var con=mysql.createConnection({
         host: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -637,7 +598,7 @@ app.post("/obtenerP", function(req,res){
     let sql = `select * from proveedor where correo = "${req.body.correo}"`
     var con=mysql.createConnection({
         host: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -677,7 +638,7 @@ app.post("/eliminarP",function(req,res){
     console.log('Consulta ', sql);
     var con=mysql.createConnection({
         host: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -714,7 +675,7 @@ app.post("/eliminarP",function(req,res){
 
 app.post('/registroproducto',function(req,res){
     console.log(req.body)
-    let sql='SELECT id_inventario FROM Inventario WHERE nombre=?'
+    let sql='SELECT id_inventario FROM inventario WHERE nombre=?'
     let sql2='INSERT INTO Producto SET ?'
 
     var con=mysql.createConnection({
@@ -758,7 +719,7 @@ app.post('/registroproducto',function(req,res){
                             console.log(result.insertId)
                             if(req.body.agua==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 1,
                                     id_prod: result.insertId
@@ -774,7 +735,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.azucar==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 2,
                                     id_prod: result.insertId
@@ -790,7 +751,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.grenetina==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 3,
                                     id_prod: result.insertId
@@ -806,7 +767,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.fresa==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 4,
                                     id_prod: result.insertId
@@ -822,7 +783,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.mango==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 5,
                                     id_prod: result.insertId
@@ -838,7 +799,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.evaporada==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 6,
                                     id_prod: result.insertId
@@ -854,7 +815,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.limon==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 7,
                                     id_prod: result.insertId
@@ -870,7 +831,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.colorante==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 8,
                                     id_prod: result.insertId
@@ -886,7 +847,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.melon==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 9,
                                     id_prod: result.insertId
@@ -902,7 +863,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.clara==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 10,
                                     id_prod: result.insertId
@@ -918,7 +879,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.vanilla==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 11,
                                     id_prod: result.insertId
@@ -934,7 +895,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.yema==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 12,
                                     id_prod: result.insertId
@@ -950,7 +911,7 @@ app.post('/registroproducto',function(req,res){
                             }
                             if(req.body.crema==true)
                             {
-                                let sql4='INSERT INTO Inv_Ingr SET ?'
+                                let sql4='INSERT INTO inv_ingr SET ?'
                                 let post2={
                                     id_ingre: 13,
                                     id_prod: result.insertId
@@ -991,7 +952,7 @@ app.post("/registroP", function(req,res){
     let sql='INSERT INTO proveedor SET ?'
     var con=mysql.createConnection({
         host: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -1071,7 +1032,7 @@ app.post("/obtenerE", function(req,res){
     let sql = `select * from empleado where correo = "${req.body.correo}"`
     var con=mysql.createConnection({
         host: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -1112,7 +1073,7 @@ app.post("/eliminarE",function(req,res){
     console.log('Consulta ', sql);
     var con=mysql.createConnection({
         host: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -1308,7 +1269,7 @@ app.post("/consultaRecibo", function(req,res){
     let sql=`SELECT id_recibo as "ID_del_Recibo", FunTotalConIVA(1) as "Total_con_IVA" FROM recibo WHERE id_recibo=1`
     var con=mysql.createConnection({
         host: "25.47.154.70",
-        user: "lnxarchictec",
+        user: "lnxarchitect",
         password: "AL258227ed@_",
         database: "paleteria"
     })
@@ -1382,7 +1343,45 @@ app.post("/consultaTotales", function(req,res){
         }
     })
 })
-
+app.post("/eliminarInventario",function(req,res){
+    let sql = `delete from Inventario where id_inventario = ${req.body.id}`
+    console.log('Consulta ', sql);
+    var con=mysql.createConnection({
+        host: "25.47.206.235",
+        user: "winarchitect",
+        password: "root",
+        database: "paleteria"
+    })
+    con.connect(function(err){
+        if(err)
+        {
+            console.log(err)
+            res.send(err)
+            res.end
+        }
+        else{
+            con.query(sql,function(err,result,fields){
+                if(err)
+                {
+                    if(err.sqlMessage.includes("Cliente.correo"))
+                    {
+                        res.send("correo")
+                        res.end
+                    }
+                    else{
+                        console.log(err)
+                        res.send(err)
+                        res.end
+                    }
+                }
+                else{
+                    res.send(result)
+                    res.end
+                }
+            })
+        }
+    })
+})
 app.listen(5000,(req,res)=>{
     console.log('Express API esta corriendo en el puerto 5000');
 });
