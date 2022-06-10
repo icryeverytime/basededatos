@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 import {FormGroup,FormControl, Validators, AbstractControl,ValidationErrors} from '@angular/forms';
 @Component({
   selector: 'app-factura',
@@ -40,7 +41,15 @@ export class FacturaComponent implements OnInit {
       console.log(result)
       if(result=="ingresado")
       {
-
+        Swal.fire({
+          title: 'Compra exitosa',
+          text: 'Ya puede ver los cambios realizados',
+          icon: 'success',
+          confirmButtonText: 'Done'
+        }).then(function()
+        {
+          window.location.href = "http://localhost:4200/ingredientes";
+        });
       }
     })
   }
